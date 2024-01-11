@@ -5,6 +5,7 @@ const path = require('path');
 
 const url = require('./src/routes/url');
 const db = require('./config/db.config');
+const RedisClient = require('./src/client/redis')
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,6 +20,10 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 db.connect();
+const redisClient = RedisClient.getInstance();
+(async () => {
+  await redisClient.connect();
+})();
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

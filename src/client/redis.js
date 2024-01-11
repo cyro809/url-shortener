@@ -1,10 +1,10 @@
 const redis = require("redis")
 
 class RedisClient {
+    static instance;
     constructor() {
         this.client = redis.createClient({
-            host: process.env.REDIS_HOST,
-            port: process.env.REDIS_PORT
+            url: `${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`
         });
         this.client.on("connect", () =>{
             console.log("Connected to Redis")
@@ -13,13 +13,18 @@ class RedisClient {
             console.error(`Error connecting to Redis: ${err}`)
         })
     }
+
+    static getInstance() {
+        if (!this.instance) {
+            this.instance = new RedisClient();
+        }
+        return this.instance;
+    }
     async connect() {
-        if(!this.client.isReady)
-            await this.client.connect()
+        await this.client.connect()
     }
 
-    async get(shortUrl) {
-        await this.connect()
+    get(shortUrl) {
         this.client.get(shortUrl, (err, response) => {
             if (err) {
                 console.error(err)
@@ -29,8 +34,7 @@ class RedisClient {
         });
     }
 
-    async set(shortUrl, originalUrl) {
-        await this.connect()
+    set(shortUrl, originalUrl) {
         const expirationInSeconds = 60;
         this.client.set(shortUrl, originalUrl, (err, response) => {
             if (err)
