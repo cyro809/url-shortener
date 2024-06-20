@@ -1,11 +1,12 @@
 head
+  link(rel='stylesheet', type='text/css', href='/static/css/style.css')
   link(rel='stylesheet', type='text/css', href='/static/vendor/css/bootstrap.min.css')
   title YAUS - Yet Another URL Shortener
 
 body
   h1.title Welcome to YAUS
-  label(for='url' class='url-input-label') Type the url you want to short
-  div(class='form-group')
+  div(class='form-group form-group-style')
+    label(for='url' class='url-input-label') Type the url you want to short
     input(
       type='url'
       placeholder='https://example.com'
@@ -14,8 +15,8 @@ body
     )
     button(
       id='send-button'
-      class='btn btn-default'
+      class='btn btn-default col-md-4 send-button-style'
     ) Create Short URL
-  div(class='short-url-container')
-    a(class='short-url-text')
+    div(class='short-url-container')
+      a(class='short-url-text')
   script(src='/static/js/index.js')

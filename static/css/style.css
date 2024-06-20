@@ -1,0 +1,14 @@
+.form-group-style {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.form-group-style .url-input-field {
+    max-width: 80%;
+    margin-bottom: 16px;
+}
+
+.form-group-style .send-button-style {
+    margin-bottom: 16px;
+}
