@@ -12,3 +12,11 @@
 .form-group-style .send-button-style {
     margin-bottom: 16px;
 }
+.page-title-style {
+    margin-bottom: 32px;
+}
+.redirect-container-style {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
