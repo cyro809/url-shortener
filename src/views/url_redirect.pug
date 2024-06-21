@@ -7,9 +7,9 @@ body
   h1.title(class="page-title-style") Welcome to YAUS
   div(class="redirect-container-style")
     if url
-      h2 You're about to be redirected to #[a(id='url-link' class="font-weight-bold" href=url)=url]
+      p.redirect-text-style You're about to be redirected to #[a(id='url-link' class="redirect-link-style" href=url)=url]
       div.countdown-container
         p.countdown Redirecting #[span(id='countdown-timer') in 5 seconds]
     else
-      h2 Url not found!
+      p.redirect-text-style Url not found!
   script(src='/static/js/redirect.js')
