@@ -1,18 +1,22 @@
 head
-  title Short.me - Url shortner
+  link(rel='stylesheet', type='text/css', href='/static/css/style.css')
+  link(rel='stylesheet', type='text/css', href='/static/vendor/css/bootstrap.min.css')
+  title YAUS - Yet Another URL Shortener
 
 body
-  h1.title Welcome to short.me!
-  label(for='url' class='url-input-label') Type the url you want to short
-  input(
-    type='url'
-    placeholder='https://example.com'
-    name='url'
-    class='url-input-field'
-  )
-  button(
-    id='send-button'
-  ) Create Short URL
-  div(class='short-url-container')
-    a(class='short-url-text')
+  h1.title(class="page-title-style") Welcome to YAUS
+  div(class='form-group form-group-style')
+    label(for='url' class='url-input-label') Type the url you want to short
+    input(
+      type='url'
+      placeholder='https://example.com'
+      name='url'
+      class='url-input-field form-control'
+    )
+    button(
+      id='send-button'
+      class='btn btn-default col-md-4 send-button-style'
+    ) Create Short URL
+    div(class='short-url-container')
+      a(class='short-url-text')
   script(src='/static/js/index.js')

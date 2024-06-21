@@ -1,0 +1,33 @@
+.form-group-style {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group-style .url-input-field {
+    max-width: 80%;
+    margin-bottom: 16px;
+}
+
+.form-group-style .send-button-style {
+    margin-bottom: 16px;
+}
+
+.page-title-style {
+    margin-bottom: 32px;
+}
+
+.redirect-container-style {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.redirect-text-style {
+    font-size: 30px;
+}
+
+.redirect-link-style {
+    font-weight: bold;
+}
