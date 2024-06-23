@@ -11,7 +11,9 @@ class UrlController {
   }
 
   static async getNormalUrl(shortUrlHash) {
-    redisClient.get(shortUrlHash);
+    const originalUrl = await redisClient.get(shortUrlHash);
+    if (originalUrl)
+      return originalUrl
     return UrlRepository.getUrlByHash(shortUrlHash);
   }
 
@@ -23,7 +25,7 @@ class UrlController {
   static async createShortUrl(data) {
     const newData = data;
     newData.shortUrlHash = this.generateHash();
-    redisClient.set(newData.shortUrlHash, newData.url);
+    await redisClient.set(newData.shortUrlHash, newData.url);
     return UrlRepository.create(newData);
   }
 }

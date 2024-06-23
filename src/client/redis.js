@@ -24,31 +24,30 @@ class RedisClient {
         await this.client.connect()
     }
 
-    get(shortUrl) {
-        this.client.get(shortUrl, (err, response) => {
-            if (err) {
-                console.error(err)
+    async get(key) {
+        try {
+            const value = await this.client.get(key)
+            if (value) {
+                console.log(`Key ${key} has value ${value}`);
+                return value
             } else {
-                console.log("Get: ", response)
+                console.log(`Key ${key} does not exist or has expired`);
+                
             }
-        });
+        } catch (err) {
+            console.error(err)
+        }
+        
     }
 
-    set(shortUrl, originalUrl) {
+    async set(key, value) {
         const expirationInSeconds = 60;
-        this.client.set(shortUrl, originalUrl, (err, response) => {
-            if (err)
-                console.error(err)
-            else
-                console.log("Set: ", response)
-        });
-        this.client.expire(shortUrl, expirationInSeconds, (expireError, expireReply) => {
-            if(expireError)
-                console.error(err)
-            else
-                console.log("Expire: ", expireReply)
-        })
-
+        try {
+            await this.client.set(key, value, "EX", expirationInSeconds)
+            console.log(`Key ${key} set with value ${value} and expiry time of ${expirationInSeconds} seconds`);
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     close() {
