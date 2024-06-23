@@ -1,5 +1,9 @@
 const randomString = require('randomstring');
 const UrlRepository = require('../repositories/url');
+const RedisClient = require('../client/redis')
+
+const redisClient = RedisClient.getInstance()
+
 
 class UrlController {
   static generateHash() {
@@ -7,6 +11,9 @@ class UrlController {
   }
 
   static async getNormalUrl(shortUrlHash) {
+    const originalUrl = await redisClient.get(shortUrlHash);
+    if (originalUrl)
+      return originalUrl
     return UrlRepository.getUrlByHash(shortUrlHash);
   }
 
@@ -15,9 +22,10 @@ class UrlController {
     return data;
   }
 
-  static createShortUrl(data) {
+  static async createShortUrl(data) {
     const newData = data;
     newData.shortUrlHash = this.generateHash();
+    await redisClient.set(newData.shortUrlHash, newData.url);
     return UrlRepository.create(newData);
   }
 }

@@ -7,9 +7,12 @@ services:
       - ./:/app
       - /app/node_modules
     environment:
-      NODE_ENV: development
+      - NODE_ENV=development
+      - REDIS_HOST=redis://redis
+      - REDIS_PORT=6379
     depends_on:
       - db
+      - redis
     links:
       - db
     ports:
@@ -21,3 +24,7 @@ services:
       - '27017:27017'
     volumes:
       - ./data/db:/usr/local/var/mongodb
+  redis:
+    image: 'redis:latest'
+    ports:
+      - '6379:6379'
