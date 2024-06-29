@@ -4,7 +4,7 @@ class RedisClient {
     static instance;
     constructor() {
         this.client = redis.createClient({
-            url: `${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`
+            url: process.env.REDIS_URL
         });
         this.client.on("connect", () =>{
             console.log("Connected to Redis")
@@ -41,7 +41,7 @@ class RedisClient {
     }
 
     async set(key, value) {
-        const expirationInSeconds = 60;
+        const expirationInSeconds = 3600;
         try {
             await this.client.set(key, value, "EX", expirationInSeconds)
             console.log(`Key ${key} set with value ${value} and expiry time of ${expirationInSeconds} seconds`);

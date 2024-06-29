@@ -8,8 +8,7 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
-      - REDIS_HOST=redis://redis
-      - REDIS_PORT=6379
+      - REDIS_URL=redis://redis:6379
     depends_on:
       - db
       - redis
