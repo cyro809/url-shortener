@@ -1,11 +1,11 @@
 const express = require("express")
 
-module.exports = function createRoutes({ createShortUrl, getShortUrl }) {
+module.exports = function createRoutes({ createShortUrl, getUrlByHash }) {
     const router = express.Router()
 
     router.get('/:shortUrl', async (req, res) => {
         try {
-          const data = await createShortUrl.execute(req.params.shortUrl);
+          const data = await getUrlByHash.execute(req.params.shortUrl);
           res.render('url_redirect', { url: data });
         } catch (err) {
           res.status(404).render('url_redirect');
@@ -13,7 +13,7 @@ module.exports = function createRoutes({ createShortUrl, getShortUrl }) {
     });
 
     router.post('/', async (req, res) => {
-        const data = await createShortUrl.execute(req.body);
+        const data = await createShortUrl.execute(req.body.originalUrl);
         res.json(data);
     });
 

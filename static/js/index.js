@@ -24,8 +24,8 @@ function bindSendButton() {
   const sendButton = document.querySelector('button#send-button');
   sendButton.addEventListener('click', async (event) => {
     const urlField = document.querySelector('input.url-input-field');
-    const response = await sendUrl('/url', { url: urlField.value });
-    showShortUrl(response.shortUrlHash);
+    const response = await sendUrl('/url', { originalUrl: urlField.value });
+    showShortUrl(response.urlHash);
     event.preventDefault();
   });
 }

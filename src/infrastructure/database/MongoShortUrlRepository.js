@@ -4,8 +4,8 @@ const mongoose = require("mongoose")
 
 const shortUrlSchema = new mongoose.Schema(
   {
-    shortUrlHash: String,
-    url: String,
+    urlHash: String,
+    originalUrl: String,
     createdDate: {
       type: Date,
       default: Date.now,
@@ -29,11 +29,11 @@ class MongoShortUrlRepository extends ShortUrlRepository {
     }
 
     async getUrlByHash(urlHash) {
-        return await ShortUrlModel.findOne({ shortUrlHash: urlHash })
+        return await ShortUrlModel.findOne({ urlHash: urlHash })
         .then((urlInfo) => {
           urlInfo.viewCount++;
           urlInfo.save();
-          return urlInfo.url;
+          return urlInfo.originalUrl;
         })
         .catch((err) => {
           throw err;
